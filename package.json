@@ -1,0 +1,28 @@
+{
+  "name": "package.json",
+  "version": "1.0.0",
+  "description": "Cordova zoom application plugin",
+  "cordova": {
+    "id": "cordova-plugin-zoom",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GMK82/cordova-plugin-zoom.git"
+  },
+  "keywords": [
+    "cordova",
+    "zoom",
+    "scale",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "Georgy Mkhitarov",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/GMK82/cordova-plugin-zoom/issues"
+  },
+  "homepage": "https://github.com/GMK82/cordova-plugin-zoom#readme"
+}
