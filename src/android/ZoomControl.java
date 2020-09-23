@@ -1,4 +1,4 @@
-package com.kumbe.phonegap.zoom;
+package com.gmk82.zoomcontrol;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
