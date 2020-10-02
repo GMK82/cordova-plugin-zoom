@@ -1,12 +1,13 @@
+cordova.define("cordova-plugin-zoom.ZoomControl", function(require, exports, module) {
 // creating plugin
 var exec = require("cordova/exec");
 
 function ZoomControl() {};
 
-ZoomControl.prototype.ZoomControl = function(enabled) {
+ZoomControl.prototype.zoomControl = function(enabled) {
   exec(null, function(error){
     alert("Error calling ZoomControl::ZoomControl:"+error);
-  }, "ZoomControl", "ZoomControl", [enabled]);
+  }, "ZoomControl", "zoomControl", [enabled]);
 };
 ZoomControl.prototype.setBuiltInZoomControls = function(enabled) {
   exec(null, function(error){
@@ -18,6 +19,12 @@ ZoomControl.prototype.setDisplayZoomControls = function(enabled) {
     alert("Error calling ZoomControl::setDisplayZoomControls:"+error);
   }, "ZoomControl", "setDisplayZoomControls", [enabled]);
 };
+ZoomControl.prototype.setInitialScale = function(scaleInPercent) {
+  exec(null, function(error){
+    alert("Error calling ZoomControl::setInitialScale:"+error);
+  }, "ZoomControl", "setInitialScale", [scaleInPercent]);
+};
 
 var ZoomControl = new ZoomControl();
 module.exports = ZoomControl;
+});

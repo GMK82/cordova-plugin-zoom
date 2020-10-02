@@ -6,18 +6,49 @@ import org.apache.cordova.LOG;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.webkit.WebSettings.ZoomDensity;
+import android.os.Build;
 import android.webkit.WebView;
-
+import android.webkit.WebSettings;
+import java.lang.reflect.Method;
+import android.os.Build.VERSION;
 /**
  * This class echoes a string called from JavaScript.
  */
 public class ZoomControl extends CordovaPlugin {
+  private int lastDefaultScale = 0;
+  public void setZoomControlGoneX(WebSettings view ,Object[] args){
+    Class classType = view.getClass();
+    try {
+      Class[] argsClass = new Class[args.length];
+
+      for (int i = 0, j = args.length; i < j; i++) {
+        argsClass[i] = args[i].getClass();
+      }
+      Method[] ms= classType.getMethods();
+      for (int i = 0; i < ms.length; i++) {
+        if(ms[i].getName().equals("setDisplayZoomControls")){
+          try {
+            ms[i].invoke(view, false);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+          break;
+        }
+        //Log.e("test", ">>"+ms[i].getName());
+      }
+
+    }catch (Exception e) {
+      e.printStackTrace();
+    }
+
+  }
+
+
   @Override
   public boolean execute(String action, final JSONArray args,
                          final CallbackContext callbackContext) throws JSONException {
 
-    if ("ZoomControl".equals(action)) {
+    if ("zoomControl".equals(action)) {
 
       final WebView webView = (WebView)this.webView.getEngine().getView();
 
@@ -26,20 +57,18 @@ public class ZoomControl extends CordovaPlugin {
         public void run() {
 
           try {
-
-            boolean enabled=args.getBoolean(0);
-
             LOG.d("SetZoomControl", "executing SetZoomControl");
-
+            boolean enabled=args.getBoolean(0);
             webView.getSettings().setBuiltInZoomControls(enabled);
-            webView.getSettings().setDefaultZoom(ZoomDensity.MEDIUM);
             webView.getSettings().setSupportZoom(enabled);
+            int sysVersion = Integer.parseInt(VERSION.SDK);
+            if(VERSION.SDK_INT >= 11 && enabled) {
+              setZoomControlGoneX(webView.getSettings(), new Object[]{false});
+            }
             callbackContext.success("OK");
-
           } catch (Exception e) {
             LOG.e("SetZoomControl", "Error: " + e.getMessage());
             callbackContext.error("Error: " + e.getMessage());
-
           }
 
         }
@@ -82,6 +111,31 @@ public class ZoomControl extends CordovaPlugin {
       });
       return true;
     }
+
+      if ("setInitialScale".equals(action)) {
+          final WebView webView = (WebView)this.webView.getEngine().getView();
+          cordova.getActivity().runOnUiThread(new Runnable() {
+              public void run() {
+                  try {
+                      LOG.d("setInitialScale", "executing setInitialScale");
+                      int scaleInPercent=args.getInt(0);
+                      if (scaleInPercent == 0) {
+                        lastDefaultScale = (lastDefaultScale == 0) ? 100 : 0;
+                        scaleInPercent = lastDefaultScale;
+                        webView.getSettings().setLoadWithOverviewMode(true);
+                        webView.getSettings().setUseWideViewPort(true);
+                      }
+                      webView.setInitialScale(scaleInPercent);
+                      callbackContext.success("OK");
+                  }
+                  catch (Exception e) {
+                    LOG.e("setInitialScale", "Error: " + e.getMessage());
+                    callbackContext.error("Error: " + e.getMessage());
+                  }
+              }
+          });
+          return true;
+      }
 
     return false;
 
