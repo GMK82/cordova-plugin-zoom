@@ -61,7 +61,6 @@ public class ZoomControl extends CordovaPlugin {
             boolean enabled=args.getBoolean(0);
             webView.getSettings().setBuiltInZoomControls(enabled);
             webView.getSettings().setSupportZoom(enabled);
-            int sysVersion = Integer.parseInt(VERSION.SDK);
             if(VERSION.SDK_INT >= 11 && enabled) {
               setZoomControlGoneX(webView.getSettings(), new Object[]{false});
             }
