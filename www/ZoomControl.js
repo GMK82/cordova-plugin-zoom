@@ -1,4 +1,3 @@
-//cordova.define("cordova-plugin-zoom.ZoomControl", function(require, exports, module) {
 // creating plugin
 var exec = require("cordova/exec");
 
@@ -27,4 +26,3 @@ ZoomControl.prototype.setInitialScale = function(scaleInPercent) {
 
 var ZoomControl = new ZoomControl();
 module.exports = ZoomControl;
-//});
