@@ -6,17 +6,30 @@
     <description>Cordova zoom application plugin</description>
     <license>Apache 2.0</license>
     <keywords>cordova,zoom,scale</keywords>
-    <js-module src="www/ZoomControl.js" name="ZoomControl">
-      <clobbers target="ZoomControl" />
-    </js-module>
-
-
+    
     <platform name="android">
+        <js-module src="www/android/ZoomControl.js" name="ZoomControl">
+          <clobbers target="ZoomControl" />
+        </js-module>
+
         <config-file target="config.xml" parent="/*">
             <feature name="ZoomControl">
                 <param name="android-package" value="com.gmk82.zoomcontrol.ZoomControl"/>
             </feature>
         </config-file>
-        <source-file src="src/android/ZoomControl.java" target-dir="src/com/gmk82/zoomcontrol" />
+        <source-file src="src/android/ZoomControl.java" target-dir="src/com/gmk82/zoomcontrol" />        
+    </platform>
+
+    <platform name="ios">
+        <js-module src="www/ios/ZoomControl.js" name="ZoomControl">
+            <clobbers target="ZoomControl" />
+        </js-module>
+        <config-file target="config.xml" parent="/*">
+            <feature name="ZoomControl">
+                <param name="ios-package" value="ZoomControl" onload="true" />
+            </feature>
+        </config-file>
+        <header-file src="src/ios/ZoomControl.h" />
+        <source-file src="src/ios/ZoomControl.m" />        
     </platform>
 </plugin>

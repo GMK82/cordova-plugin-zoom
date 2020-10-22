@@ -5,7 +5,8 @@
   "cordova": {
     "id": "cordova-plugin-zoom",
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   },
   "repository": {
@@ -17,7 +18,8 @@
     "zoom",
     "scale",
     "ecosystem:cordova",
-    "cordova-android"
+    "cordova-android",
+    "cordova-ios"
   ],
   "author": "Georgy Mkhitarov",
   "license": "Apache 2.0",
